@@ -1,0 +1,31 @@
+<!-- 這是一個 SVG 佔位圖片，實際使用時請替換為真實的超音波照片 -->
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#333" stroke-width="0.5" opacity="0.3" />
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="#1a1a1a" />
+  <rect width="400" height="300" fill="url(#grid)" />
+
+  <!-- 模擬超音波的圓形區域 -->
+  <circle cx="200" cy="150" r="120" fill="none" stroke="#666" stroke-width="2" opacity="0.6" />
+
+  <!-- 模擬胎兒輪廓 -->
+  <ellipse cx="180" cy="130" rx="40" ry="30" fill="#444" opacity="0.8" />
+  <ellipse cx="170" cy="125" rx="15" ry="12" fill="#555" opacity="0.9" />
+
+  <!-- 文字標籤 -->
+  <text x="200" y="280" text-anchor="middle" font-family="monospace" font-size="12" fill="#888">
+    ULTRASOUND PLACEHOLDER
+  </text>
+  <text x="200" y="295" text-anchor="middle" font-family="monospace" font-size="10" fill="#666">
+    請替換為真實超音波照片
+  </text>
+
+  <!-- 模擬超音波機器的標記 -->
+  <text x="10" y="20" font-family="monospace" font-size="8" fill="#888">12W+3D</text>
+  <text x="10" y="35" font-family="monospace" font-size="8" fill="#888">2024/09/25</text>
+</svg>
