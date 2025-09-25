@@ -106,7 +106,7 @@ function checkUnlockStatus() {
         // 在揭曉頁面，檢查是否已解鎖
         if (!isUnlocked) {
             // 未解鎖，導向首頁
-            window.location.href = '/index.html';
+            window.location.href = './index.html';
             return false;
         }
     }
@@ -167,7 +167,7 @@ function handleImageError(img) {
 function goBack() {
     // 清除解鎖狀態（可選）
     // sessionStorage.removeItem('unlocked');
-    window.location.href = '/index.html';
+    window.location.href = './index.html';
 }
 
 // 彩帶動畫控制
