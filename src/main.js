@@ -78,7 +78,8 @@ async function verifyPassword(password) {
             
             // 延遲一下讓使用者看到成功狀態
             setTimeout(() => {
-                window.location.href = '/reveal.html';
+                // 使用相對路徑，避免在 GitHub Pages repository 子路徑下導向到站點根目錄
+                window.location.href = './reveal.html';
             }, 300);
             
             return true;
