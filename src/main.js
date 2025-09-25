@@ -1,8 +1,8 @@
 // 配置常數
 const CONFIG = {
-    // 密碼的 SHA-256 雜湊值 - 預設密碼是 "baby2024"
+    // 密碼的 SHA-256 雜湊值 - 預設密碼是 "521"
     // 實際使用時請替換為您的密碼雜湊值
-    PASS_HASH: 'd5122773e64321067be53007a131e8c7f455cc953918bc159ebfc8b2610cb344', // "baby2024" 的雜湊值
+    PASS_HASH: '72933e3b31f0070af6478edc3becf96e1ee59917620e8c509cf0e6b360e29c02', // "521" 的雜湊值
     ENABLE_CONFETTI: true,
     REVEAL_IMAGE_URL: 'public/images/ultrasound.jpg'
 };
