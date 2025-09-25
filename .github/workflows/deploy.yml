@@ -12,7 +12,7 @@ on:
       - gh-pages
 
 jobs:
-  build-and-upload:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,9 +26,5 @@ jobs:
         with:
           path: ./
 
-  deploy-pages:
-    needs: build-and-upload
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v3
