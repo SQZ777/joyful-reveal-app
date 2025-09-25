@@ -1,0 +1,28 @@
+{
+  "name": "joyful-reveal-app",
+  "version": "1.0.0",
+  "description": "懷孕揭曉網頁 - 一個密碼保護的驚喜揭曉頁面",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000",
+    "build": "echo '純前端專案，無需建構'",
+    "preview": "npx serve . -p 4173",
+    "generate-hash": "node scripts/generate-hash.js"
+  },
+  "keywords": [
+    "pregnancy",
+    "reveal",
+    "web-page",
+    "password-protected",
+    "surprise"
+  ],
+  "author": "張少齊",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

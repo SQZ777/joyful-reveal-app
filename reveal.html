@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>驚喜揭曉 👶💖</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👶</text></svg>">
+</head>
+
+<body class="reveal-page">
+    <!-- 彩帶動畫容器 -->
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+    <div class="container">
+        <div class="reveal-card">
+            <h1 class="reveal-title">驚喜！我們要當爸媽了 👶💖</h1>
+
+            <div class="image-container">
+                <img id="ultrasoundImage" src="public/images/ultrasound.svg" alt="超音波照片" class="ultrasound-image"
+                    loading="lazy" onclick="toggleImageZoom()" onerror="handleImageError(this)">
+                <div class="image-hint">點擊圖片可放大查看</div>
+            </div>
+
+            <div class="message-container">
+                <p class="sub-message">謝謝你們的祝福與陪伴。</p>
+                <p class="date-message">預計 2025 年春天與大家見面 🌸</p>
+            </div>
+
+            <div class="action-buttons">
+                <button onclick="toggleConfetti()" class="confetti-btn">
+                    🎉 慶祝一下
+                </button>
+                <button onclick="goBack()" class="back-btn">
+                    🔙 返回
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 圖片放大模態框 -->
+    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="放大的超音波照片">
+            <button class="close-btn" onclick="closeImageModal()">&times;</button>
+        </div>
+    </div>
+
+    <script src="src/main.js"></script>
+    <script src="src/confetti.js"></script>
+    <script>
+        // 頁面載入時檢查解鎖狀態
+        window.addEventListener('DOMContentLoaded', function () {
+            checkUnlockStatus();
+
+            // 自動播放彩帶動畫
+            setTimeout(() => {
+                if (typeof startConfetti === 'function') {
+                    startConfetti();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

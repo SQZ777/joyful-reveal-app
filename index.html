@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解鎖秘密 🔐</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+</head>
+
+<body>
+    <div class="container">
+        <div class="password-card">
+            <h1 class="title">輸入密碼解鎖秘密 🔐</h1>
+
+            <form id="passwordForm" class="password-form">
+                <div class="input-group">
+                    <input type="password" id="passwordInput" class="password-input" placeholder="請輸入密碼" required
+                        autocomplete="off" aria-label="密碼輸入框">
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">解鎖</span>
+                        <span class="btn-loader" style="display: none;">⏳</span>
+                    </button>
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;" role="alert" aria-live="polite">
+                    密碼錯誤，請再試一次。
+                </div>
+            </form>
+
+            <div class="hint">
+                <p>💡 提示：想想我們的特殊日子</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/main.js"></script>
+</body>
+
+</html>
