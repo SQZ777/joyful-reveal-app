@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="reveal-card">
-            <h1 class="reveal-title">Suprice！我們要當爸媽了 👶💖</h1>
+            <h1 class="reveal-title">Surprise！我們要當爸媽了 👶💖</h1>
 
             <div class="carousel-container">
                 <div id="mediaCarousel" class="carousel">
@@ -186,16 +186,27 @@
     <script src="src/confetti.js"></script>
     <script>
         // 頁面載入時檢查解鎖狀態
-        window.addEventListener('DOMContentLoaded', function () {
-            checkUnlockStatus();
+        (function () {
+            // 先隱藏整個文件，避免載入時一瞬間看到內容
+            document.documentElement.style.visibility = 'hidden';
 
-            // 自動播放彩帶動畫
-            setTimeout(() => {
-                if (typeof startConfetti === 'function') {
-                    startConfetti();
+            window.addEventListener('DOMContentLoaded', function () {
+                // 確保 checkUnlockStatus 函式存在
+                if (typeof checkUnlockStatus === 'function') {
+                    checkUnlockStatus();
                 }
-            }, 500);
-        });
+
+                // 顯示頁面內容
+                document.documentElement.style.visibility = 'visible';
+
+                // 自動播放彩帶動畫
+                setTimeout(() => {
+                    if (typeof startConfetti === 'function') {
+                        startConfetti();
+                    }
+                }, 500);
+            });
+        })();
     </script>
 </body>
 
