@@ -16,17 +16,151 @@
 
     <div class="container">
         <div class="reveal-card">
-            <h1 class="reveal-title">驚喜！我們要當爸媽了 👶💖</h1>
+            <h1 class="reveal-title">Suprice！我們要當爸媽了 👶💖</h1>
 
-            <div class="image-container">
-                <img id="ultrasoundImage" src="public/images/ultrasound.svg" alt="超音波照片" class="ultrasound-image"
-                    loading="lazy" onclick="toggleImageZoom()" onerror="handleImageError(this)">
-                <div class="image-hint">點擊圖片可放大查看</div>
+            <div class="carousel-container">
+                <div id="mediaCarousel" class="carousel">
+                    <div class="slide">
+                        <video id="ultrasoundVideo" class="ultrasound-video" controls autoplay preload="auto"
+                            playsinline muted loop poster="public/images/ultrasound-poster.png"
+                            onclick="toggleVideoZoom()">
+                            <source src="public/videos/ultrasound-video1.mp4" type="video/mp4">
+                            您的瀏覽器不支援影片播放。請<a href="public/videos/ultrasound-video1.mp4" download>下載影片</a>以檢視。
+                        </video>
+                        <div class="image-hint">點擊影片可放大查看</div>
+                    </div>
+
+                    <div class="slide">
+                        <img src="public/images/ultrasound2.jpg" alt="超音波照片" class="carousel-image"
+                            onclick="openImageModal(this.src)" />
+                        <div class="image-hint">點擊圖片放大或往右滑查看</div>
+                    </div>
+                </div>
+
+                <button class="carousel-btn prev" aria-label="上一張" onclick="scrollCarousel(-1)">‹</button>
+                <button class="carousel-btn next" aria-label="下一張" onclick="scrollCarousel(1)">›</button>
             </div>
+
+            <style>
+                /* 簡單的輪播樣式，若有全域 styles.css 可移除重複項 */
+                .carousel-container {
+                    position: relative;
+                    overflow: hidden;
+                    margin: 1rem 0;
+                }
+
+                .carousel {
+                    display: flex;
+                    gap: 1rem;
+                    overflow-x: auto;
+                    scroll-snap-type: x mandatory;
+                    -webkit-overflow-scrolling: touch;
+                    padding-bottom: 8px;
+                }
+
+                .slide {
+                    flex: 0 0 100%;
+                    scroll-snap-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .ultrasound-video,
+                .carousel-image {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+                }
+
+                .carousel-btn {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(255, 255, 255, 0.8);
+                    border: none;
+                    font-size: 1.6rem;
+                    padding: 0.25rem 0.6rem;
+                    border-radius: 8px;
+                    cursor: pointer;
+                }
+
+                .carousel-btn.prev {
+                    left: 8px;
+                }
+
+                .carousel-btn.next {
+                    right: 8px;
+                }
+
+                .image-hint {
+                    font-size: 0.9rem;
+                    color: #666;
+                    margin-top: 0.5rem;
+                }
+
+                /* 隱藏滾動條（視瀏覽器而定） */
+                .carousel::-webkit-scrollbar {
+                    display: none;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const carousel = document.getElementById('mediaCarousel');
+                    let isDown = false, startX, scrollLeft;
+
+                    // 滑鼠拖曳與觸控支援
+                    carousel.addEventListener('mousedown', (e) => {
+                        isDown = true;
+                        carousel.classList.add('active');
+                        startX = e.pageX - carousel.offsetLeft;
+                        scrollLeft = carousel.scrollLeft;
+                    });
+                    carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('active'); });
+                    carousel.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('active'); });
+                    carousel.addEventListener('mousemove', (e) => {
+                        if (!isDown) return;
+                        e.preventDefault();
+                        const x = e.pageX - carousel.offsetLeft;
+                        const walk = (x - startX) * 1; // 滾動靈敏度
+                        carousel.scrollLeft = scrollLeft - walk;
+                    });
+
+                    // 觸控手勢
+                    let touchStartX = 0, touchStartScroll = 0;
+                    carousel.addEventListener('touchstart', (e) => {
+                        touchStartX = e.touches[0].pageX;
+                        touchStartScroll = carousel.scrollLeft;
+                    }, { passive: true });
+                    carousel.addEventListener('touchmove', (e) => {
+                        const dx = e.touches[0].pageX - touchStartX;
+                        carousel.scrollLeft = touchStartScroll - dx;
+                    }, { passive: true });
+
+                    // 按鈕捲動：以一個 slide 寬度為單位
+                    window.scrollCarousel = function (direction) {
+                        const slideWidth = carousel.clientWidth;
+                        const target = carousel.scrollLeft + direction * slideWidth;
+                        carousel.scrollTo({ left: target, behavior: 'smooth' });
+                    };
+
+                    // 點擊圖片放大（使用頁面已有的 modal）
+                    window.openImageModal = function (src) {
+                        const modal = document.getElementById('imageModal');
+                        const modalImg = document.getElementById('modalImage');
+                        if (modal && modalImg) {
+                            modalImg.src = src;
+                            modal.style.display = 'block';
+                        }
+                    };
+                })();
+            </script>
 
             <div class="message-container">
                 <p class="sub-message">謝謝你們的祝福與陪伴。</p>
-                <p class="date-message">預計 2025 年春天與大家見面 🌸</p>
+                <p class="date-message">密碼就是 2026 年預產日！🥳</p>
             </div>
 
             <div class="action-buttons">
