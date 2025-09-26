@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="src/styles.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👶</text></svg>">
+    <script>
+        // 在 body 渲染前立即隱藏，防止內容閃爍
+        document.documentElement.style.visibility = 'hidden';
+    </script>
 </head>
 
 <body class="reveal-page">
@@ -185,18 +189,16 @@
     <script src="src/main.js"></script>
     <script src="src/confetti.js"></script>
     <script>
-        // 頁面載入時檢查解鎖狀態
+        // 頁面載入時檢查解鎖狀態並顯示內容
         (function () {
-            // 先隱藏整個文件，避免載入時一瞬間看到內容
-            document.documentElement.style.visibility = 'hidden';
-
             window.addEventListener('DOMContentLoaded', function () {
                 // 確保 checkUnlockStatus 函式存在
                 if (typeof checkUnlockStatus === 'function') {
                     checkUnlockStatus();
                 }
 
-                // 顯示頁面內容
+                // 顯示頁面內容。
+                // checkUnlockStatus 會處理未授權的重定向，若使用者已授權，則此處會顯示頁面。
                 document.documentElement.style.visibility = 'visible';
 
                 // 自動播放彩帶動畫
