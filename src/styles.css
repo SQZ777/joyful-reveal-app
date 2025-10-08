@@ -138,6 +138,232 @@ body {
     margin-top: 1rem;
 }
 
+/* Hint Images Section */
+.hint-images {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hint-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.hint-subtitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.hint-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.image-container-hint {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.hint-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 107, 157, 0.2);
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* 添加濾鏡效果 */
+    filter: blur(1px) brightness(0.8) contrast(1.1);
+}
+
+.image-container-hint:hover .hint-image {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+    border-color: var(--primary-color);
+    filter: blur(0.5px) brightness(0.9) contrast(1.05);
+}
+
+.zoom-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.image-container-hint:hover .zoom-icon {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.image-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Responsive design for hint images */
+@media (max-width: 480px) {
+    .images-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .hint-image {
+        height: 180px;
+    }
+    
+    .image-container-hint {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .zoom-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    
+    .hint-title {
+        font-size: 0.95rem;
+    }
+}
+
+/* Lightbox Modal Styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+    animation: zoomIn 0.3s ease-out;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10000;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+/* Lightbox animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive lightbox */
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 85vh;
+    }
+    
+    .lightbox-caption {
+        font-size: 0.9rem;
+        bottom: 20px;
+        padding: 8px 15px;
+    }
+}
+
 /* Reveal page styles */
 .reveal-page {
     background: linear-gradient(135deg, #ffeaa7, #fab1a0, #ff7675);
