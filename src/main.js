@@ -177,6 +177,31 @@ function toggleConfetti() {
     }
 }
 
+// 圖片燈箱功能
+function openLightbox(imageSrc, imageAlt) {
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    
+    if (lightbox && lightboxImage) {
+        lightboxImage.src = imageSrc;
+        lightboxImage.alt = imageAlt;
+        if (lightboxCaption) {
+            lightboxCaption.textContent = imageAlt;
+        }
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('imageLightbox');
+    if (lightbox) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
 // 頁面初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 檢查解鎖狀態
@@ -205,10 +230,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // 綁定提示圖片點擊事件
+    const hintImageContainers = document.querySelectorAll('.image-container-hint');
+    hintImageContainers.forEach(function(container) {
+        container.addEventListener('click', function() {
+            const img = this.querySelector('.hint-image');
+            if (img) {
+                openLightbox(img.src, img.alt);
+            }
+        });
+    });
+    
+    // 綁定燈箱關閉事件
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    
+    if (lightbox) {
+        // 點擊背景關閉
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    }
+    
+    if (lightboxClose) {
+        // 點擊關閉按鈕
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+    
     // 綁定 ESC 鍵關閉模態框
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeImageModal();
+            closeLightbox();
         }
     });
 });

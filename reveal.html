@@ -5,16 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>驚喜揭曉 👶💖</title>
+    <style>
+        /* 使用 CSS 類別來預設隱藏內容，防止閃爍 */
+        .is-loading {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+    </style>
     <link rel="stylesheet" href="src/styles.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👶</text></svg>">
-    <script>
-        // 在 body 渲染前立即隱藏，防止內容閃爍
-        document.documentElement.style.visibility = 'hidden';
-    </script>
 </head>
 
-<body class="reveal-page">
+<body class="reveal-page is-loading">
     <!-- 彩帶動畫容器 -->
     <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
@@ -197,9 +201,10 @@
                     checkUnlockStatus();
                 }
 
-                // 顯示頁面內容。
-                // checkUnlockStatus 會處理未授權的重定向，若使用者已授權，則此處會顯示頁面。
-                document.documentElement.style.visibility = 'visible';
+                // 移除 is-loading 類別以顯示頁面
+                const body = document.body;
+                body.classList.remove('is-loading');
+                body.style.opacity = 1; // 觸發淡入效果
 
                 // 自動播放彩帶動畫
                 setTimeout(() => {

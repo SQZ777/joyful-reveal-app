@@ -15,6 +15,35 @@
         <div class="password-card">
             <h1 class="title">請輸入得到的密碼 🔐</h1>
 
+            <!-- Hint Images for Guessing -->
+            <div class="hint-images">
+                <p class="hint-title">💡 每一個題目的答案代表的是一個數字</p>
+                <p class="hint-subtitle">依照順序組合而成就是密碼了</p>
+                <div class="images-grid">
+                    <div class="hint-image-wrapper">
+                        <div class="image-container-hint">
+                            <img src="public/images/Q1.jpg" alt="提示圖片 1" class="hint-image">
+                            <div class="zoom-icon">🔍</div>
+                        </div>
+                        <p class="image-label">提示 1</p>
+                    </div>
+                    <div class="hint-image-wrapper">
+                        <div class="image-container-hint">
+                            <img src="public/images/Q2.jpg" alt="提示圖片 2" class="hint-image">
+                            <div class="zoom-icon">🔍</div>
+                        </div>
+                        <p class="image-label">提示 2</p>
+                    </div>
+                    <div class="hint-image-wrapper">
+                        <div class="image-container-hint">
+                            <img src="public/images/Q3.jpg" alt="提示圖片 3" class="hint-image">
+                            <div class="zoom-icon">🔍</div>
+                        </div>
+                        <p class="image-label">提示 3</p>
+                    </div>
+                </div>
+            </div>
+
             <form id="passwordForm" class="password-form">
                 <div class="input-group">
                     <input type="password" id="passwordInput" class="password-input" placeholder="請輸入密碼" required
@@ -34,6 +63,13 @@
                 <p>💡 請輸入得到的數字密碼</p>
             </div>
         </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageLightbox" class="lightbox" style="display: none;">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImage" alt="放大圖片">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
     <script src="src/main.js"></script>
