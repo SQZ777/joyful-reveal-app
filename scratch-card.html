@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刮刮樂驚喜 🎉</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+</head>
+
+<body>
+    <div class="scratch-page">
+        <div class="container">
+            <div class="scratch-card">
+                <h1 class="scratch-title">用手指刮開驚喜 ✨</h1>
+                <p class="scratch-hint">在下方的銀色區域用手指或滑鼠刮除，發現驚喜！</p>
+
+                <div class="scratch-container">
+                    <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+                    <div class="scratch-reveal" id="scratchReveal">
+                        <!-- 初始狀態：100張小圖片 -->
+                        <div class="image-grid" id="imageGrid">
+                            <!-- 動態產生100張小圖片 -->
+                        </div>
+                        <!-- 最終狀態：單張大圖片 -->
+                        <img src="public/images/ultrasound2.jpg" alt="驚喜照片" class="scratch-image final-image"
+                            id="finalImage" style="display: none;" onerror="handleImageError(this)">
+                    </div>
+                </div>
+
+                <div class="scratch-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text">已刮除: <span id="progressPercent">0</span>%</p>
+                </div>
+
+                <div class="scratch-actions">
+                    <button class="btn-secondary" onclick="resetScratch()">重新開始</button>
+                </div>
+
+                <div class="scratch-instructions">
+                    <p>💡 提示：</p>
+                    <ul>
+                        <li>在電腦上用滑鼠拖拽刮除</li>
+                        <li>在手機上用手指滑動刮除</li>
+                        <li>刮除超過 70% 會自動顯示完整圖片</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/scratch-card.js"></script>
+</body>
+
+</html>
