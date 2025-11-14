@@ -151,16 +151,12 @@ class ScratchCard {
         // 清空現有內容
         imageGrid.innerHTML = '';
         
-        // 建立1024張小圖片 (32x32網格)
-        for (let i = 0; i < 1024; i++) {
-            const img = document.createElement('img');
-            img.src = 'public/images/ultrasound2.jpg';
-            img.alt = '小圖片';
-            img.className = 'grid-image';
-            img.onerror = () => {
-                img.style.display = 'none';
-            };
-            imageGrid.appendChild(img);
+        // 建立100個問號標記 (10x10網格)
+        for (let i = 0; i < 100; i++) {
+            const questionMark = document.createElement('div');
+            questionMark.textContent = '?';
+            questionMark.className = 'grid-question';
+            imageGrid.appendChild(questionMark);
         }
     }
 
