@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夾娃娃機 - 性別揭露</title>
+    <link rel="stylesheet" href="src/claw-machine.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 夾娃娃機性別揭露 🎮</h1>
+        
+        <div class="game-container">
+            <!-- 夾娃娃機主體 -->
+            <div class="machine">
+                <!-- 機器頂部 -->
+                <div class="machine-top"></div>
+                
+                <!-- 遊戲區域 -->
+                <div class="game-area">
+                    <!-- 爪子軌道 -->
+                    <div class="claw-rail" id="clawRail">
+                        <div class="claw" id="claw">
+                            <div class="claw-cable" id="clawCable"></div>
+                            <div class="claw-head">
+                                <div class="claw-arm left"></div>
+                                <div class="claw-arm right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 娃娃區域 -->
+                    <div class="prizes-area">
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                        <div class="prize" data-type="unknown">
+                            <div class="prize-icon">🧸</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 出口 -->
+                <div class="machine-exit">
+                    <div class="exit-door">
+                        <div class="exit-flap"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 控制面板 -->
+            <div class="control-panel">
+                <div class="control-row">
+                    <button class="control-btn" id="leftBtn">
+                        <span>⬅️</span>
+                        <span>左</span>
+                    </button>
+                    <button class="control-btn grab-btn" id="grabBtn">
+                        <span>🎯</span>
+                        <span>夾</span>
+                    </button>
+                    <button class="control-btn" id="rightBtn">
+                        <span>➡️</span>
+                        <span>右</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 結果顯示 -->
+        <div class="result-overlay" id="resultOverlay">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon"></div>
+                <h2 id="resultTitle"></h2>
+                <p id="resultMessage"></p>
+                <button class="replay-btn" id="replayBtn">再玩一次</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="src/claw-machine.js"></script>
+</body>
+</html>
