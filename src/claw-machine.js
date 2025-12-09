@@ -5,6 +5,7 @@ class ClawMachineGame {
         this.claw = document.getElementById('claw');
         this.clawRail = document.getElementById('clawRail');
         this.clawCable = document.getElementById('clawCable');
+        this.gameArea = document.querySelector('.game-area');
         this.resultOverlay = document.getElementById('resultOverlay');
         this.resultIcon = document.getElementById('resultIcon');
         this.resultTitle = document.getElementById('resultTitle');
@@ -23,26 +24,25 @@ class ClawMachineGame {
         this.moveStep = 5; // 每次移動的百分比
         
         // 娃娃位置 (百分比) - 類型在抓取時隨機決定
-        // 創建密集的娃娃排列，包含三排
+        // 創建密集的娃娃排列，包含三排，調整位置使其更居中
         this.prizes = [
             // 第一排（前排）
-            { x: 10, y: 75, type: 'unknown', element: null },
-            { x: 23, y: 75, type: 'unknown', element: null },
-            { x: 36, y: 75, type: 'unknown', element: null },
-            { x: 50, y: 75, type: 'unknown', element: null },
-            { x: 64, y: 75, type: 'unknown', element: null },
-            { x: 77, y: 75, type: 'unknown', element: null },
-            { x: 90, y: 75, type: 'unknown', element: null },
+            { x: 8, y: 75, type: 'unknown', element: null },
+            { x: 20, y: 75, type: 'unknown', element: null },
+            { x: 32, y: 75, type: 'unknown', element: null },
+            { x: 44, y: 75, type: 'unknown', element: null },
+            { x: 56, y: 75, type: 'unknown', element: null },
+            { x: 68, y: 75, type: 'unknown', element: null },
+            { x: 80, y: 75, type: 'unknown', element: null },
+            { x: 92, y: 75, type: 'unknown', element: null },
             // 第二排（中排，稍微後面一點）
-            { x: 16, y: 70, type: 'unknown', element: null },
-            { x: 30, y: 70, type: 'unknown', element: null },
-            { x: 43, y: 70, type: 'unknown', element: null },
-            { x: 57, y: 70, type: 'unknown', element: null },
-            { x: 70, y: 70, type: 'unknown', element: null },
-            { x: 84, y: 70, type: 'unknown', element: null },
-            // 第三排（後排）
-            { x: 25, y: 65, type: 'unknown', element: null },
-            { x: 75, y: 65, type: 'unknown', element: null }
+            { x: 14, y: 70, type: 'unknown', element: null },
+            { x: 26, y: 70, type: 'unknown', element: null },
+            { x: 38, y: 70, type: 'unknown', element: null },
+            { x: 50, y: 70, type: 'unknown', element: null },
+            { x: 62, y: 70, type: 'unknown', element: null },
+            { x: 74, y: 70, type: 'unknown', element: null },
+            { x: 86, y: 70, type: 'unknown', element: null }
         ];
         
         this.init();
@@ -72,9 +72,10 @@ class ClawMachineGame {
     updateClawPosition() {
         this.clawRail.style.left = this.clawPosition.x + '%';
         this.clawCable.style.height = this.clawPosition.y + '%';
-        // 讓爪子頭部跟著纜線移動 - 遊戲區域高度是 380px
+        // 讓爪子頭部跟著纜線移動 - 動態獲取遊戲區域高度
         const clawHead = this.claw.querySelector('.claw-head');
-        const cableLength = (this.clawPosition.y / 100) * 380; // 將百分比轉換為實際像素
+        const gameAreaHeight = this.gameArea.clientHeight;
+        const cableLength = (this.clawPosition.y / 100) * gameAreaHeight;
         clawHead.style.setProperty('--cable-length', cableLength + 'px');
     }
     
@@ -203,9 +204,12 @@ class ClawMachineGame {
                 
                 // 如果有娃娃，讓它跟著爪子移動 - 使用與爪子相同的像素計算
                 if (prize && prize.element) {
-                    // 遊戲區域高度 380px，娃娃區域底部約 120px，娃娃初始 bottom 10px
-                    const clawPixelY = (this.clawPosition.y / 100) * 380;
-                    const prizeBottom = 10 + (380 - 120) - clawPixelY;
+                    // 動態獲取遊戲區域和娃娃區域高度
+                    const gameAreaHeight = this.gameArea.clientHeight;
+                    const prizesArea = document.querySelector('.prizes-area');
+                    const prizesAreaHeight = prizesArea ? prizesArea.clientHeight : 120;
+                    const clawPixelY = (this.clawPosition.y / 100) * gameAreaHeight;
+                    const prizeBottom = 10 + (gameAreaHeight - prizesAreaHeight) - clawPixelY;
                     prize.element.style.bottom = Math.max(10, prizeBottom) + 'px';
                 }
                 
