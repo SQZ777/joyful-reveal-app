@@ -22,27 +22,29 @@ class ClawMachineGame {
         this.isGrabbing = false;
         this.gameOver = false;
         this.moveStep = 5; // 每次移動的百分比
+        this.moveInterval = null; // 持續移動的計時器
+        this.currentDirection = null; // 當前移動方向
         
         // 娃娃位置 (百分比) - 類型在抓取時隨機決定
-        // 創建密集的娃娃排列，包含三排，調整位置使其更居中
+        // 創建密集的娃娃排列，包含三排，調整位置使其更居中並往左移
         this.prizes = [
-            // 第一排（前排）
-            { x: 8, y: 75, type: 'unknown', element: null },
-            { x: 20, y: 75, type: 'unknown', element: null },
-            { x: 32, y: 75, type: 'unknown', element: null },
-            { x: 44, y: 75, type: 'unknown', element: null },
-            { x: 56, y: 75, type: 'unknown', element: null },
-            { x: 68, y: 75, type: 'unknown', element: null },
-            { x: 80, y: 75, type: 'unknown', element: null },
-            { x: 92, y: 75, type: 'unknown', element: null },
-            // 第二排（中排，稍微後面一點）
-            { x: 14, y: 70, type: 'unknown', element: null },
-            { x: 26, y: 70, type: 'unknown', element: null },
-            { x: 38, y: 70, type: 'unknown', element: null },
-            { x: 50, y: 70, type: 'unknown', element: null },
-            { x: 62, y: 70, type: 'unknown', element: null },
-            { x: 74, y: 70, type: 'unknown', element: null },
-            { x: 86, y: 70, type: 'unknown', element: null }
+            // 第一排（前排）- 往左移動
+            { x: 5, y: 75, type: 'unknown', element: null },
+            { x: 16, y: 75, type: 'unknown', element: null },
+            { x: 27, y: 75, type: 'unknown', element: null },
+            { x: 38, y: 75, type: 'unknown', element: null },
+            { x: 49, y: 75, type: 'unknown', element: null },
+            { x: 60, y: 75, type: 'unknown', element: null },
+            { x: 71, y: 75, type: 'unknown', element: null },
+            { x: 82, y: 75, type: 'unknown', element: null },
+            // 第二排（中排，稍微後面一點）- 往左移動
+            { x: 10, y: 70, type: 'unknown', element: null },
+            { x: 21, y: 70, type: 'unknown', element: null },
+            { x: 32, y: 70, type: 'unknown', element: null },
+            { x: 43, y: 70, type: 'unknown', element: null },
+            { x: 54, y: 70, type: 'unknown', element: null },
+            { x: 65, y: 70, type: 'unknown', element: null },
+            { x: 76, y: 70, type: 'unknown', element: null }
         ];
         
         this.init();
@@ -62,11 +64,63 @@ class ClawMachineGame {
         // 設置初始爪子位置
         this.updateClawPosition();
         
-        // 綁定事件
-        this.leftBtn.addEventListener('click', () => this.moveClaw('left'));
-        this.rightBtn.addEventListener('click', () => this.moveClaw('right'));
+        // 綁定事件 - 支援按住持續移動
+        this.setupButtonEvents(this.leftBtn, 'left');
+        this.setupButtonEvents(this.rightBtn, 'right');
         this.grabBtn.addEventListener('click', () => this.grab());
+        this.grabBtn.addEventListener('touchstart', (e) => { e.preventDefault(); this.grab(); });
         this.replayBtn.addEventListener('click', () => this.reset());
+        this.replayBtn.addEventListener('touchstart', (e) => { e.preventDefault(); this.reset(); });
+    }
+    
+    setupButtonEvents(button, direction) {
+        // 滑鼠事件
+        button.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            this.startMoving(direction);
+        });
+        button.addEventListener('mouseup', () => this.stopMoving());
+        button.addEventListener('mouseleave', () => this.stopMoving());
+        
+        // 觸摸事件
+        button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.startMoving(direction);
+        });
+        button.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.stopMoving();
+        });
+        button.addEventListener('touchcancel', () => this.stopMoving());
+    }
+    
+    startMoving(direction) {
+        if (this.isGrabbing || this.gameOver) return;
+        
+        this.currentDirection = direction;
+        const btn = direction === 'left' ? this.leftBtn : this.rightBtn;
+        btn.classList.add('active');
+        
+        // 立即移動一次
+        this.moveClaw(direction);
+        
+        // 設定持續移動
+        this.moveInterval = setInterval(() => {
+            this.moveClaw(direction);
+        }, 100); // 每 100ms 移動一次
+    }
+    
+    stopMoving() {
+        if (this.moveInterval) {
+            clearInterval(this.moveInterval);
+            this.moveInterval = null;
+        }
+        
+        if (this.currentDirection) {
+            const btn = this.currentDirection === 'left' ? this.leftBtn : this.rightBtn;
+            btn.classList.remove('active');
+            this.currentDirection = null;
+        }
     }
     
     updateClawPosition() {
@@ -81,15 +135,6 @@ class ClawMachineGame {
     
     moveClaw(direction) {
         if (this.isGrabbing || this.gameOver) return;
-        
-        const btn = {
-            'left': this.leftBtn,
-            'right': this.rightBtn
-        }[direction];
-        
-        // 添加按鈕動畫
-        btn.classList.add('active');
-        setTimeout(() => btn.classList.remove('active'), 200);
         
         switch(direction) {
             case 'left':
@@ -297,6 +342,9 @@ class ClawMachineGame {
     }
     
     reset() {
+        // 停止任何持續移動
+        this.stopMoving();
+        
         // 重置遊戲狀態
         this.clawPosition = { x: 50, y: 0 };
         this.isGrabbing = false;
